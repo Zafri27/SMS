@@ -1,0 +1,75 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Uni Work\\4 th Semester\\DBMS project\\Omer,Neha,Dua,Rayan\\SMS\\SMS\\SMS.csproj": {}
+  },
+  "projects": {
+    "E:\\Uni Work\\4 th Semester\\DBMS project\\Omer,Neha,Dua,Rayan\\SMS\\SMS\\SMS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Uni Work\\4 th Semester\\DBMS project\\Omer,Neha,Dua,Rayan\\SMS\\SMS\\SMS.csproj",
+        "projectName": "SMS",
+        "projectPath": "E:\\Uni Work\\4 th Semester\\DBMS project\\Omer,Neha,Dua,Rayan\\SMS\\SMS\\SMS.csproj",
+        "packagesPath": "C:\\Users\\s\\.nuget\\packages\\",
+        "outputPath": "E:\\Uni Work\\4 th Semester\\DBMS project\\Omer,Neha,Dua,Rayan\\SMS\\SMS\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\s\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

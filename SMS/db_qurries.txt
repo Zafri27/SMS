@@ -1,0 +1,172 @@
+create database db_SchoolM
+use db_SchoolM
+-----------tbl_admin table and procedure to add admin details-------------
+create table tbl_admin(
+ad_id int primary key identity,
+ad_name nvarchar(20) not null unique,
+ad_password nvarchar(20) not null
+);
+
+
+create proc insert_tbladmin
+(
+@ad_name nvarchar(20) ,
+@ad_password nvarchar(20)
+)
+as
+
+begin 
+insert into tbl_admin(ad_name,ad_password)
+values(@ad_name,@ad_password)
+end
+
+
+execute insert_tbladmin 'neha','4567'
+
+select * from tbl_admin
+
+-----------tbl_student table and procedure to add Student details-------------
+create table tbl_student
+(
+std_id int primary key identity,
+std_name nvarchar(30) not null,
+std_fname nvarchar(30) not null,
+std_gender nvarchar(6) not null,
+std_address nvarchar(100) not null,
+std_addmissiondate nvarchar(20) not null,
+std_ad_fk_id int foreign key references tbl_admin(ad_id)
+);
+
+create proc insert_tblstudent
+(
+@std_name nvarchar(30),
+@std_fname nvarchar(30),
+@std_gender nvarchar(6),
+@std_address nvarchar(100), 
+@std_addmissiondate nvarchar(20),
+@std_ad_fk_id int 
+)
+as
+begin
+insert into tbl_student(std_name,std_fname,std_gender,std_address,std_addmissiondate,std_ad_fk_id)
+values (@std_name,@std_fname,@std_gender,@std_address,@std_addmissiondate,@std_ad_fk_id)
+end
+
+execute insert_tblstudent 'Hassan','Uddin','Male','B-22 North Nazimabad','1-01-2020',2
+
+SELECT * FROM tbl_student
+--which admin has added student
+SELECT std_name,std_gender,std_addmissiondate,ad.ad_name as 'Admin name'  from tbl_student st inner join tbl_admin ad on ad.ad_id=st.std_ad_fk_id 
+--omer admin has added which student
+SELECT std_name,std_gender,std_addmissiondate,ad.ad_name as 'Admin name'  from tbl_student st inner join tbl_admin ad on ad.ad_id=st.std_ad_fk_id where ad.ad_name='omer'
+
+
+-----------fees table and procedure to add fees details-------------
+
+create table tbl_fees
+(
+fee_id int identity primary key,
+fee_amount float not null,
+fee_date nvarchar(20) not null,
+fee_fk_st_id int  foreign key references tbl_student(std_id)
+)
+
+create proc insert_tblfees
+(
+@fee_amount float,
+@fee_date nvarchar(20),
+@fee_fk_st_id int 
+)
+
+AS
+BEGIN
+insert into tbl_fees(fee_amount,fee_date,fee_fk_st_id)
+values (@fee_amount,@fee_date,@fee_fk_st_id)
+END
+
+execute insert_tblfees 10000,'01-02-2020',3
+
+select * from tbl_fees
+--which student has paid the fees
+select f.fee_amount,f.fee_date,s.std_name as 'student name' from tbl_fees f inner join tbl_student s on s.std_id=f.fee_fk_st_id
+
+
+
+-------procedure to insert Students for forms-----------------
+create proc insert_students
+(
+@std_name nvarchar(30),
+@std_fname nvarchar(30),
+@std_gender nvarchar(6),
+@std_address nvarchar(100), 
+@std_addmissiondate nvarchar(20),
+@std_ad_fk_id int 
+)
+
+as 
+begin
+insert into tbl_student(std_name,std_fname,std_gender,std_address,std_addmissiondate,std_ad_fk_id)
+values (@std_name,@std_fname,@std_gender,@std_address,@std_addmissiondate,@std_ad_fk_id)
+end
+
+execute insert_students 'Rayan','Ahmed','Male','Gulsha-e-iqbal B-120','2-4-2020',1
+
+-----------------procedure to update student------------------
+
+create proc update_student
+(
+@std_id int,
+@std_name nvarchar(30),
+@std_fname nvarchar(30),
+@std_gender nvarchar(6),
+@std_address nvarchar(100)
+
+)
+
+as 
+begin
+update tbl_student
+set std_name=@std_name,std_fname=@std_fname,std_gender=@std_gender,std_address=@std_address where std_id=@std_id
+end
+
+
+----------------------
+create table tbl_classes
+(
+class_id int primary key identity,
+class_name nvarchar(20) not null,
+class_fee float 
+);
+
+insert into tbl_classes
+values('IV',8000),
+('V',9000),
+('VI',10000),
+('VII',15000),
+('VIII',18000),
+('IX',20000),
+('X',25000)
+
+select * from tbl_student
+
+create table tbl_student_status
+(
+ss_id int primary key identity,
+ss_std_id_fk int foreign key references tbl_student(std_id),
+ss_class_id_fk int foreign key references tbl_classes(class_id),
+ss_year nvarchar(5)
+)
+
+create proc insert_student_status
+(
+@ss_std_id_fk int,
+@ss_class_id_fk int,
+@ss_year nvarchar(5)
+)
+as 
+begin 
+insert into tbl_student_status(ss_std_id_fk,ss_class_id_fk,ss_year) values(@ss_std_id_fk,@ss_class_id_fk,@ss_year) 
+end
+
+-----multiple join-----
+select std_id ,std_name,ss_year,class_name from tbl_student inner join tbl_student_status on std_id=ss_id inner join tbl_classes on class_id=ss_class_id_fk
